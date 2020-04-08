@@ -2,6 +2,8 @@
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
 FROM gobuffalo/buffalo:v0.14.8 as builder
 
+ENV GO111MODULE=on
+
 RUN mkdir -p $GOPATH/src/github.com/gobuffalo/toodo
 WORKDIR $GOPATH/src/github.com/gobuffalo/toodo
 
@@ -10,7 +12,7 @@ ADD package.json .
 ADD yarn.lock .
 RUN yarn install --no-progress
 ADD . .
-RUN dep ensure -v
+RUN go mod tidy
 RUN buffalo build --static -o /bin/app
 
 FROM alpine

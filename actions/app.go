@@ -5,11 +5,11 @@ import (
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	"github.com/gobuffalo/envy"
 	csrf "github.com/gobuffalo/mw-csrf"
-	forcessl "github.com/gobuffalo/mw-forcessl"
+	// forcessl "github.com/gobuffalo/mw-forcessl"
 	i18n "github.com/gobuffalo/mw-i18n"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
 	"github.com/gobuffalo/packr/v2"
-	"github.com/unrolled/secure"
+	// "github.com/unrolled/secure"
 
 	"github.com/gobuffalo/toodo/models"
 )
@@ -30,10 +30,10 @@ func App() *buffalo.App {
 			SessionName: "_toodo_session",
 		})
 		// Automatically redirect to SSL
-		app.Use(forcessl.Middleware(secure.Options{
-			SSLRedirect:     ENV == "production",
-			SSLProxyHeaders: map[string]string{"X-Forwarded-Proto": "https"},
-		}))
+		// app.Use(forcessl.Middleware(secure.Options{
+		//	SSLRedirect:     ENV == "production",
+		//	SSLProxyHeaders: map[string]string{"X-Forwarded-Proto": "https"},
+		// }))
 
 		if ENV == "development" {
 			app.Use(paramlogger.ParameterLogger)
